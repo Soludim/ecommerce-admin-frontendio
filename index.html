@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href='https://fonts.googleapis.com/css?family=Kumbh Sans' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css" />
+  <title>Frontend Mentor | E-commerce product page</title>
+</head>
+<body>  
+  <nav>
+    <div class="branding">
+      <img class="nav-mobile" src="images/icon-menu.svg" alt="menu" width="24px"/> sneakers</div>
+    <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Men</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Women</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+    </ul>
+  <ul class="nav-list-right">
+    <img src="images/icon-cart.svg" alt="cart" class="cart"/>
+    <img src ="images/image-avatar.png" alt="avatar" class="avatar"/>
+  </ul>
+</nav>
+<div class="nav-border"></div>
+
+  <div class="container">
+  <div class="left">
+    <div style="display:flex">
+      <img style="position: relative;" class="product" width="300px" src="images/image-product-1.jpg" alt="product1">
+      <div class="swipe-controller">
+          <img class="swipe-controller-icon" width="12px" src="images/icon-previous.svg" alt="prev">
+          <img class="swipe-controller-icon" width="12px" src="images/icon-next.svg" alt="next">
+      </div>
+    </div>
+    <div class="product-views">
+      <img class="selected_prod product" width="55px" src="images/image-product-1-thumbnail.jpg" alt="">
+      <img class="product" width="55px" src="images/image-product-2-thumbnail.jpg" alt="">
+      <img class="product" width="55px" src="images/image-product-3-thumbnail.jpg" alt="">
+      <img class="product" width="55px" src="images/image-product-4-thumbnail.jpg" alt="">
+    </div>
+  </div>
+
+  <div class="right">
+    <p class="company">SNEAKER COMPANY</p>
+    <div style="font-weight: 700; font-size: 40px;">Fall Limited Edition Sneakers</div>
+    <p class="info">These low profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they'll 
+     withstand everything the weather can offer.
+    </p>
+    <br />
+    <div class="price-info">
+      <div style="display:flex; align-items: center; padding-bottom: 3px;">
+       <span class="price">$125.00</span>
+       <span class="discount">50%</span>
+      </div>
+      <div class="old-price">$250.00</div>
+    </div>
+    
+    <div class="bottom-com">
+     <div class="wrap-count">
+       <button class="c-btn">+</button>
+       <input min="0" class="c-input" type="number" value="0"/>
+       <button class="c-btn">-</button>
+     </div>
+     <button class="add-cart-btn">
+       <img class="icon" src="images/icon-cart.svg" />
+       Add to cart
+     </button>
+    </div>
+  </div>
+  </div>
+
+  <div class="modal">
+    <div class="modal-content">
+      <div class="close-button">
+          <img width="12px" src="images/icon-close.svg" alt="close" />
+      </div>
+      <div>
+        <div style="display:flex; justify-content: center;">
+          <img id="product-show" style="position: relative;" class="product" width="300px" src="images/image-product-1.jpg" alt="productshow">
+          <div class="swipe-controller-lightbox">
+              <img class="swipe-controller-icon" width="12px" src="images/icon-previous.svg" alt="prev">
+              <img class="swipe-controller-icon" width="12px" src="images/icon-next.svg" alt="next">
+          </div>
+        </div>
+        <div class="product-views">
+          <img class="selected_prod product" width="55px" src="images/image-product-1-thumbnail.jpg" alt="">
+          <img class="product" width="55px" src="images/image-product-2-thumbnail.jpg" alt="">
+          <img class="product" width="55px" src="images/image-product-3-thumbnail.jpg" alt="">
+          <img class="product" width="55px" src="images/image-product-4-thumbnail.jpg" alt="">
+        </div>
+      </div>
+  </div>
+  </div>
+
+  <script>
+    const modal = document.querySelector(".modal");
+    const trigger = document.querySelector(".product");
+    const closeButton = document.querySelector(".close-button");
+    const menuNavIcon = document.querySelector(".nav-mobile")
+    const navList = document.getElementsByClassName("nav-list");
+
+    function menuNavToggle() {
+      if (navList[0].style.display == "none" || navList[0].style.display == "")
+          navList[0].style.display = "block"
+      else
+      navList[0].style.display = "none"
+    }
+
+    function toggleModal() {
+      var x = window.matchMedia("(max-width: 375px)") // modal should only work on big screens
+      if (!x.matches)
+         modal.classList.toggle("show-modal");
+    }
+
+    function windowOnClick(event) {
+        if (event.target === modal) {
+           toggleModal();
+        }
+    }
+
+    trigger.addEventListener("click", toggleModal);
+    closeButton.addEventListener("click", toggleModal);
+    menuNavIcon.addEventListener("click", menuNavToggle);
+    window.addEventListener("click", windowOnClick);
+
+    function displayWindowSize(){
+        // Get width and height of the window excluding scrollbars
+        var w = document.documentElement.clientWidth;
+        var h = document.documentElement.clientHeight;
+        
+        if (w > 375)
+          navList[0].style.display = "flex"
+        else
+          menuNavToggle()
+
+    }
+
+    // Attaching the event listener function to window's resize event
+    window.addEventListener("resize", displayWindowSize);
+
+    // Calling the function for the first time
+    displayWindowSize();
+  </script>
+</body>
+</html>
