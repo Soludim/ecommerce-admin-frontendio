@@ -14,6 +14,9 @@
     <div class="branding">
       <img class="nav-mobile" src="images/icon-menu.svg" alt="menu" width="24px"/> sneakers</div>
     <ul class="nav-list">
+           <div class="close-nav">
+              x
+            </div>
             <li class="nav-item"><a class="nav-link" href="#">Collections</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Men</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Women</a></li>
@@ -21,26 +24,48 @@
             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
     </ul>
   <ul class="nav-list-right">
-    <img src="images/icon-cart.svg" alt="cart" class="cart"/>
+    <img src="images/icon-cart.svg" alt="cart" class="cart" onclick="toggleCartDisplay()"/>
+    <div class="cart-notification"></div>
     <img src ="images/image-avatar.png" alt="avatar" class="avatar"/>
   </ul>
+  <div class="cart-card" style="display: none;">
+    <div style="font-weight: 700; padding: 20px;">Cart</div>
+    <div style="width: 100%; border-bottom: 1px solid hsl(223, 64%, 90%);"></div> 
+    <div class="cart-content-empty" style="display: flex;align-items: center;justify-content: center;height: 70%;color: hsl(220, 14%, 75%);
+  ;font-weight: 700;">
+     Your cart is empty.
+    </div>
+
+    <div id="cartFilled" style="height:60%; padding:10px; display: none; flex-direction: column; justify-content: space-around;">
+      <div style="display:flex; justify-content: space-around; width: 100%;">
+        <img src="images/image-product-1.jpg" width="40" style="height:fit-content; border-radius:4px"/>
+        <div style="margin-left: 8px; display: flex; flex-direction: column; height: 100%; justify-content: space-around;">
+           <div style="font-size: 12px; color: hsl(220, 14%, 75%);">Fall Limited Edition Sneakers</div>
+           <div id="priceTotal" style="font-size: 12px; color: hsl(220, 14%, 75%);"></div>
+        </div>
+        <img id="removeCart" src="images/icon-delete.svg" alt="del" width="10" style="height:fit-content; align-self:center; cursor: pointer;" onclick="delItemInCart()">
+      </div>
+      <button class="primary-btn">Checkout</button>
+    </div>
+
+  </div>
 </nav>
 <div class="nav-border"></div>
 
   <div class="container">
   <div class="left">
     <div style="display:flex">
-      <img style="position: relative;" class="product" width="300px" src="images/image-product-1.jpg" alt="product1">
+      <img class="product-show" width="300px" src="images/image-product-1.jpg" alt="product1">
       <div class="swipe-controller">
-          <img class="swipe-controller-icon" width="12px" src="images/icon-previous.svg" alt="prev">
-          <img class="swipe-controller-icon" width="12px" src="images/icon-next.svg" alt="next">
+          <img id="swipe-prev" class="swipe-controller-icon" width="12px" src="images/icon-previous.svg" alt="prev">
+          <img id="swipe-next" class="swipe-controller-icon" width="12px" src="images/icon-next.svg" alt="next">
       </div>
     </div>
     <div class="product-views">
-      <img class="selected_prod product" width="55px" src="images/image-product-1-thumbnail.jpg" alt="">
-      <img class="product" width="55px" src="images/image-product-2-thumbnail.jpg" alt="">
-      <img class="product" width="55px" src="images/image-product-3-thumbnail.jpg" alt="">
-      <img class="product" width="55px" src="images/image-product-4-thumbnail.jpg" alt="">
+      <img class="selected_prod product" width="55px" src="images/image-product-1-thumbnail.jpg" onclick="selectedProImg('image-product-1')">
+      <img class="product" width="55px" src="images/image-product-2-thumbnail.jpg"onclick="selectedProImg('image-product-2')">
+      <img class="product" width="55px" src="images/image-product-3-thumbnail.jpg"onclick="selectedProImg('image-product-3')">
+      <img class="product" width="55px" src="images/image-product-4-thumbnail.jpg"onclick="selectedProImg('image-product-4')">
     </div>
   </div>
 
@@ -61,11 +86,11 @@
     
     <div class="bottom-com">
      <div class="wrap-count">
-       <button class="c-btn">+</button>
-       <input min="0" class="c-input" type="number" value="0"/>
-       <button class="c-btn">-</button>
+       <button class="c-btn" onclick="increaseCount()">+</button>
+       <input min="0" class="c-input" type="number" value="0" id="countInput"/>
+       <button class="c-btn" onclick="decreaseCount()">-</button>
      </div>
-     <button class="add-cart-btn">
+     <button class="primary-btn" onclick="addToCart()">
        <img class="icon" src="images/icon-cart.svg" />
        Add to cart
      </button>
@@ -80,17 +105,17 @@
       </div>
       <div>
         <div style="display:flex; justify-content: center;">
-          <img id="product-show" style="position: relative;" class="product" width="300px" src="images/image-product-1.jpg" alt="productshow">
+          <img style="position: relative;" class="product-show" width="300px" src="images/image-product-1.jpg" alt="productshow">
           <div class="swipe-controller-lightbox">
-              <img class="swipe-controller-icon" width="12px" src="images/icon-previous.svg" alt="prev">
-              <img class="swipe-controller-icon" width="12px" src="images/icon-next.svg" alt="next">
+              <img id="swipe-prev-modal" class="swipe-controller-icon" width="12px" src="images/icon-previous.svg" alt="prev">
+              <img id="swipe-next-modal" class="swipe-controller-icon" width="12px" src="images/icon-next.svg" alt="next">
           </div>
         </div>
         <div class="product-views">
-          <img class="selected_prod product" width="55px" src="images/image-product-1-thumbnail.jpg" alt="">
-          <img class="product" width="55px" src="images/image-product-2-thumbnail.jpg" alt="">
-          <img class="product" width="55px" src="images/image-product-3-thumbnail.jpg" alt="">
-          <img class="product" width="55px" src="images/image-product-4-thumbnail.jpg" alt="">
+          <img class="selected_prod product" width="55px" src="images/image-product-1-thumbnail.jpg" alt="" onclick="selectedProImg('image-product-1')">
+          <img class="product" width="55px" src="images/image-product-2-thumbnail.jpg" alt="" onclick="selectedProImg('image-product-2')">
+          <img class="product" width="55px" src="images/image-product-3-thumbnail.jpg" alt="" onclick="selectedProImg('image-product-3')">
+          <img class="product" width="55px" src="images/image-product-4-thumbnail.jpg" alt="" onclick="selectedProImg('image-product-4')">
         </div>
       </div>
   </div>
@@ -98,15 +123,20 @@
 
   <script>
     const modal = document.querySelector(".modal");
-    const trigger = document.querySelector(".product");
+    const trigger = document.querySelector(".product-show");
     const closeButton = document.querySelector(".close-button");
     const menuNavIcon = document.querySelector(".nav-mobile")
+    const closeNav = document.querySelector(".close-nav")
     const navList = document.getElementsByClassName("nav-list");
 
     function menuNavToggle() {
       if (navList[0].style.display == "none" || navList[0].style.display == "")
-          navList[0].style.display = "block"
+        navList[0].style.display = "block"
       else
+        navList[0].style.display = "none"
+    }
+
+    function closeNavFunc() {
       navList[0].style.display = "none"
     }
 
@@ -125,6 +155,7 @@
     trigger.addEventListener("click", toggleModal);
     closeButton.addEventListener("click", toggleModal);
     menuNavIcon.addEventListener("click", menuNavToggle);
+    closeNav.addEventListener("click", closeNavFunc)
     window.addEventListener("click", windowOnClick);
 
     function displayWindowSize(){
@@ -145,5 +176,6 @@
     // Calling the function for the first time
     displayWindowSize();
   </script>
+  <script src="./script.js"></script>
 </body>
 </html>
